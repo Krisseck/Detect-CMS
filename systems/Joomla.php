@@ -1,29 +1,36 @@
 <?php
 
-class Drupal extends DetectCMS {
+class Joomla extends DetectCMS {
 
 	public $methods = array(
-		"changelog",
+		"readme",
 		"generator_header",
 		"generator_meta",
-		"node_css",
+		"core_js"
 	);
 
 	/**
-	 * See if CHANGELOG.TXT exists, and check for Drupal
+	 * See if README.txt exists, and contains Joomla line
 	 * @param  [string] $url
 	 * @return [boolean]
 	 */
-	public function changelog($url) {
+	public function readme($url) {
 
-		if($data = $this->fetch($url."/CHANGELOG.txt")) {
+		if($data = $this->fetch($url."/README.txt")) {
 
 			/**
-			 * Changelog always starts from the second line
+			 * Loop first 10 lines and look for Joomla text
 			 */
 			$lines = explode(PHP_EOL, $data);
 
-			return strpos($lines[1], "Drupal") !== FALSE;
+			for($i=0;$i<10;$i++) {
+
+				if(strpos($lines[$i], "2- What is Joomla?") !== FALSE) {
+					return TRUE;
+				}
+
+			}
+
 		}
 
 		return FALSE;
@@ -42,7 +49,7 @@ class Drupal extends DetectCMS {
 
 				if(strpos($line, "X-Generator") !== FALSE) {
 
-					return strpos($line, "Drupal") !== FALSE;
+					return strpos($line, "Joomla!") !== FALSE;
 
 				}
 
@@ -68,7 +75,7 @@ class Drupal extends DetectCMS {
 
 				if($meta = $html->find("meta[name='generator']",0)) {
 
-					return strpos($meta->content, "Drupal") !== FALSE;
+					return strpos($meta->content, "Joomla!") !== FALSE;
 
 				}
 
@@ -81,20 +88,20 @@ class Drupal extends DetectCMS {
 	}
 
 	/**
-	 * Check modules/node/node.css content
+	 * Check /media/system/js/core.js content
 	 * @param  [string] $url
 	 * @return [boolean]
 	 */
-	public function node_css($url) {
+	public function core_js($url) {
 
-		if($data = $this->fetch($url."/modules/node/node.css")) {
+		if($data = $this->fetch($url."/media/system/js/core.js")) {
 
 			/**
-			 * Second line always has .node-published css
+			 * 4th line always has Joomla declaration
 			 */
 			$lines = explode(PHP_EOL, $data);
 
-			return strpos($lines[1], ".node-published") !== FALSE;
+			return strpos($lines[3], "var Joomla={};") !== FALSE;
 		}
 
 		return FALSE;
