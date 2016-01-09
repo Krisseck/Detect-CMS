@@ -11,20 +11,21 @@ class Joomla extends DetectCMS {
 
 	public $home_html = "";
         public $home_headers = array();
+	public $url = "";
 
-        function __construct($home_html, $home_headers) {
+        function __construct($home_html, $home_headers, $url) {
                 $this->home_html = $home_html;
                 $this->home_headers = $home_headers;
+		$this->url = $url;
         }
 
 	/**
 	 * See if README.txt exists, and contains Joomla line
-	 * @param  [string] $url
 	 * @return [boolean]
 	 */
-	public function readme($url) {
+	public function readme() {
 
-		if($data = $this->fetch($url."/README.txt")) {
+		if($data = $this->fetch($this->url."/README.txt")) {
 
 			/**
 			 * Loop first 10 lines and look for Joomla text
@@ -97,12 +98,11 @@ class Joomla extends DetectCMS {
 
 	/**
 	 * Check /media/system/js/core.js content
-	 * @param  [string] $url
 	 * @return [boolean]
 	 */
-	public function core_js($url) {
+	public function core_js() {
 
-		if($data = $this->fetch($url."/media/system/js/core.js")) {
+		if($data = $this->fetch($this->url."/media/system/js/core.js")) {
 
 			/**
 			 * 4th line always has Joomla declaration

@@ -11,20 +11,21 @@ class Wordpress extends DetectCMS {
 
 	public $home_html = "";
         public $home_headers = array();
+	public $url = "";
 
-        function __construct($home_html, $home_headers) {
+        function __construct($home_html, $home_headers, $url) {
                 $this->home_html = $home_html;
                 $this->home_headers = $home_headers;
+                $this->url = $url;
         }
 
 	/**
 	 * See if readme.html exists, and contains Wordpress title
-	 * @param  [string] $url
 	 * @return [boolean]
 	 */
-	public function readme($url) {
+	public function readme() {
 
-		if($data = $this->fetch($url."/readme.html")) {
+		if($data = $this->fetch($this->url."/readme.html")) {
 
 			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
 
@@ -96,12 +97,11 @@ class Wordpress extends DetectCMS {
 
 	/**
 	 * Check /wp-includes/css/buttons.css content
-	 * @param  [string] $url
 	 * @return [boolean]
 	 */
-	public function button_css($url) {
+	public function button_css() {
 
-		if($data = $this->fetch($url."/wp-includes/css/buttons.css")) {
+		if($data = $this->fetch($this->url."/wp-includes/css/buttons.css")) {
 
 			/**
 			 * 9th line always has Wordpress-style Buttons

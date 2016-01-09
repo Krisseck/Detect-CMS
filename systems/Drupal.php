@@ -11,20 +11,21 @@ class Drupal extends DetectCMS {
 
 	public $home_html = "";
 	public $home_headers = array();
+	public $url = "";
 
-	function __construct($home_html, $home_headers) {
+	function __construct($home_html, $home_headers, $url) {
                 $this->home_html = $home_html;
                 $this->home_headers = $home_headers;
+		$this->url = $url;
         }
 
 	/**
 	 * See if CHANGELOG.TXT exists, and check for Drupal
-	 * @param  [string] $url
 	 * @return [boolean]
 	 */
-	public function changelog($url) {
+	public function changelog() {
 
-		if($data = $this->fetch($url."/CHANGELOG.txt")) {
+		if($data = $this->fetch($this->url."/CHANGELOG.txt")) {
 
 			/**
 			 * Changelog always starts from the second line
@@ -90,12 +91,11 @@ class Drupal extends DetectCMS {
 
 	/**
 	 * Check modules/node/node.css content
-	 * @param  [string] $url
 	 * @return [boolean]
 	 */
-	public function node_css($url) {
+	public function node_css() {
 
-		if($data = $this->fetch($url."/modules/node/node.css")) {
+		if($data = $this->fetch($this->url."/modules/node/node.css")) {
 
 			/**
 			 * Second line always has .node-published css

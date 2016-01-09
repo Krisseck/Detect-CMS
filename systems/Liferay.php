@@ -8,10 +8,12 @@ class Liferay extends DetectCMS {
 
 	public $home_html = "";
         public $home_headers = array();
+	public $url = "";
 
-        function __construct($home_html, $home_headers) {
+        function __construct($home_html, $home_headers, $url) {
                 $this->home_html = $home_html;
                 $this->home_headers = $home_headers;
+                $this->url = $url;
         }
 
 	/**

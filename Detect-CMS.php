@@ -31,7 +31,7 @@ class DetectCMS {
 
 			require_once(dirname(__FILE__)."/systems/".$system_name.".php");
 
-			$system = new $system_name($this->home_html, $this->home_headers);
+			$system = new $system_name($this->home_html, $this->home_headers, $this->url);
 
 			foreach($this->common_methods as $method) {
 
@@ -56,7 +56,7 @@ class DetectCMS {
 
 			require_once(dirname(__FILE__)."/systems/".$system_name.".php");
 
-			$system = new $system_name($this->home_html, $this->home_headers);
+			$system = new $system_name($this->home_html, $this->home_headers, $this->url);
 
 			foreach($system->methods as $method) {
 
