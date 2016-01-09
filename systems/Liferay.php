@@ -6,6 +6,14 @@ class Liferay extends DetectCMS {
 		"core_js_variable"
 	);
 
+	public $home_html = "";
+        public $home_headers = array();
+
+        function __construct($home_html, $home_headers) {
+                $this->home_html = $home_html;
+                $this->home_headers = $home_headers;
+        }
+
 	/**
 	 * Check for core Javascript variable declaration
 	 * @return [boolean]

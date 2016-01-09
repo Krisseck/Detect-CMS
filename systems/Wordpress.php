@@ -9,6 +9,14 @@ class Wordpress extends DetectCMS {
 		"button_css"
 	);
 
+	public $home_html = "";
+        public $home_headers = array();
+
+        function __construct($home_html, $home_headers) {
+                $this->home_html = $home_html;
+                $this->home_headers = $home_headers;
+        }
+
 	/**
 	 * See if readme.html exists, and contains Wordpress title
 	 * @param  [string] $url

@@ -9,6 +9,14 @@ class Drupal extends DetectCMS {
 		"node_css",
 	);
 
+	public $home_html = "";
+	public $home_headers = array();
+
+	function __construct($home_html, $home_headers) {
+                $this->home_html = $home_html;
+                $this->home_headers = $home_headers;
+        }
+
 	/**
 	 * See if CHANGELOG.TXT exists, and check for Drupal
 	 * @param  [string] $url

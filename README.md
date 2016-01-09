@@ -8,10 +8,9 @@ How to use:
 
     include("Detect-CMS/Detect-CMS.php");
     $domain = "http://google.com";
-    $detect = new DetectCMS();
-    if($cms = $detect->check($domain)) {
-        echo "Detected CMS: ".$cms;
+    $cms = new DetectCMS($domain);
+    if($cms->getResult()) {
+        echo "Detected CMS: ".$cms->getResult();
     } else {
         echo "CMS couldn't be detected";
-    }
-    
+    } 

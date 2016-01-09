@@ -9,6 +9,14 @@ class Joomla extends DetectCMS {
 		"core_js"
 	);
 
+	public $home_html = "";
+        public $home_headers = array();
+
+        function __construct($home_html, $home_headers) {
+                $this->home_html = $home_html;
+                $this->home_headers = $home_headers;
+        }
+
 	/**
 	 * See if README.txt exists, and contains Joomla line
 	 * @param  [string] $url

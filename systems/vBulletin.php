@@ -7,6 +7,14 @@ class vBulletin extends DetectCMS {
 		"core_js_function"
 	);
 
+	public $home_html = "";
+        public $home_headers = array();
+
+        function __construct($home_html, $home_headers) {
+                $this->home_html = $home_html;
+                $this->home_headers = $home_headers;
+        }	
+
 	/**
 	 * Check meta tags for generator
 	 * @return [boolean]

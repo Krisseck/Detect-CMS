@@ -6,31 +6,38 @@ class DetectCMS {
 
 	private $common_methods = array("generator_header","generator_meta");
 
-	protected $home_html = "";
+	public $home_html = "";
 
-	protected $home_headers = array();
+	public $home_headers = array();
 
-	public function check($url) {
+	public $url = "";
+	
+	public $result = FALSE;
+
+	function __construct($url) {
+		$this->url = $url;
+		$this->home_html = $this->fetch();
+                $this->home_headers = $this->fetchHeaders();
+		$this->result = $this->check();
+	}
+
+	public function check() {
 
 		/*
 		 * Common, easy way first: check for Generator metatags or Generator headers
 		 */
 				
-		$this->home_html = $this->fetch($url);
-
-		$this->home_headers = $this->fetchHeaders($url);
-
 		foreach($this->systems as $system_name) {
 
 			require_once(dirname(__FILE__)."/systems/".$system_name.".php");
 
-			$system = new $system_name();
+			$system = new $system_name($this->home_html, $this->home_headers);
 
 			foreach($this->common_methods as $method) {
 
 				if(method_exists($system,$method)) {
 
-					if($system->$method($url)) {
+					if($system->$method()) {
 
                                         	return $system_name;
 
@@ -49,13 +56,13 @@ class DetectCMS {
 
 			require_once(dirname(__FILE__)."/systems/".$system_name.".php");
 
-			$system = new $system_name();
+			$system = new $system_name($this->home_html, $this->home_headers);
 
 			foreach($system->methods as $method) {
 
 				if(!in_array($method,$this->common_methods)) {
 
-					if($system->$method($url)) {
+					if($system->$method()) {
 
 						return $system_name;
 
@@ -71,11 +78,17 @@ class DetectCMS {
 
 	}
 
-	protected function fetch($url) {
+	public function getResult() {
+
+		return $this->result;
+
+	}
+
+	protected function fetch() {
 
 		$ch = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, $url);
+		curl_setopt($ch, CURLOPT_URL, $this->url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
 		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); 
@@ -96,11 +109,11 @@ class DetectCMS {
 
 	}
 
-	protected function fetchHeaders($url) {
+	protected function fetchHeaders() {
 
 		$ch = curl_init();
 
-                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_URL, $this->url);
                 curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
                 curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
                 curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
