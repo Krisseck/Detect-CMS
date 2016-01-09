@@ -2,7 +2,7 @@
 
 class DetectCMS {
 
-	public $systems = array("Drupal","Wordpress","Joomla");
+	public $systems = array("Drupal","Wordpress","Joomla","Liferay","vBulletin");
 
 	private $common_methods = array("generator_header","generator_meta");
 
@@ -28,9 +28,13 @@ class DetectCMS {
 
 			foreach($this->common_methods as $method) {
 
-				if($system->$method()) {
+				if(method_exists($system,$method)) {
 
-					return $system_name;
+					if($system->$method($url)) {
+
+                                        	return $system_name;
+
+                                        }
 
 				}
 
