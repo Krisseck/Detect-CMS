@@ -21,7 +21,7 @@ class Liferay extends DetectCMS {
 	 * @return [boolean]
 	 */
 	public function core_js_variable() {
-
+	
 		if($this->home_html) {
 
 			return strpos($this->home_html, "var Liferay = {") !== FALSE;

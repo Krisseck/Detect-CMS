@@ -16,9 +16,8 @@ class DetectCMS {
 
 	function __construct($url) {
 		$this->url = $url;
-		$this->home_html = $this->fetch();
-                $this->home_headers = $this->fetchHeaders();
-		$this->result = $this->check();
+		list($this->home_headers, $this->home_html) = $this->fetchBodyAndHeaders();
+		$this->result = $this->check($url);
 	}
 
 	public function check() {
@@ -52,6 +51,7 @@ class DetectCMS {
 		/*
 		 * Didn't find it yet, let's just use regular tricks
 		 */
+
 		foreach($this->systems as $system_name) {
 
 			require_once(dirname(__FILE__)."/systems/".$system_name.".php");
@@ -109,7 +109,7 @@ class DetectCMS {
 
 	}
 
-	protected function fetchHeaders() {
+	protected function fetchBodyAndHeaders() {
 
 		$ch = curl_init();
 
@@ -122,31 +122,32 @@ class DetectCMS {
 
                 $response = curl_exec($ch);
 
-		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
                 if($httpCode == 404) {
                         curl_close($ch);
-          		return FALSE;
-                } else {
+                        return FALSE;
+                }
 
-			$headers = array();
+		$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
+		$header = substr($response, 0, $header_size);
+		$body = substr($response, $header_size);
 
-    			$header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
+		$header_array = array();
 
-    			foreach (explode("\r\n", $header_text) as $i => $line)
-        		if ($i === 0) {
-            			$headers['http_code'] = $line;
-        		} else {
-        			list ($key, $value) = explode(': ', $line);
-
-            			$headers[$key] = $value;
-        		}
+		foreach (explode("\r\n", $header) as $i => $line) {
+			if ($i === 0) {
+				$header_array['http_code'] = $line;
+                        } else {
+                              	list ($key, $value) = explode(': ', $line);
+                               	$header_array[$key] = $value;
+                        }
 
 		}
 
-                curl_close($ch);
+		curl_close($ch);
 
-                return $headers;
+		return array($header_array, $body);		
 
 	}
 
