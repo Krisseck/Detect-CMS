@@ -74,17 +74,16 @@ class DetectCMS {
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60); 
-		curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); 
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
 		$return = curl_exec($ch);
 
 		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
 		if($httpCode == 404) {
-
 			curl_close($ch);
-		    return FALSE;
+			return FALSE;
 		}
 
 		curl_close($ch);
@@ -95,8 +94,42 @@ class DetectCMS {
 
 	protected function fetchHeaders($url) {
 
-		return get_headers($url);
+		$ch = curl_init();
 
+                curl_setopt($ch, CURLOPT_URL, $url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_HEADER, 1);
+
+                $response = curl_exec($ch);
+
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+                if($httpCode == 404) {
+                        curl_close($ch);
+          		return FALSE;
+                } else {
+
+			$headers = array();
+
+    			$header_text = substr($response, 0, strpos($response, "\r\n\r\n"));
+
+    			foreach (explode("\r\n", $header_text) as $i => $line)
+        		if ($i === 0) {
+            			$headers['http_code'] = $line;
+        		} else {
+        			list ($key, $value) = explode(': ', $line);
+
+            			$headers[$key] = $value;
+        		}
+
+		}
+
+                curl_close($ch);
+
+                return $headers;
 
 	}
 
