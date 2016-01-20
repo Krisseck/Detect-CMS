@@ -2,7 +2,7 @@
 
 class DetectCMS {
 
-	public $systems = array("Drupal","Wordpress","Joomla","Liferay","vBulletin");
+	public $systems = array("Drupal","Wordpress","Joomla","Liferay","vBulletin","Magento");
 
 	private $common_methods = array("generator_header","generator_meta");
 
