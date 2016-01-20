@@ -14,6 +14,11 @@ class Magento
         $this->url = $url;
     }
 
+    /**
+     * Magento installs define a Mage.Cookies.path in a script tag in the header
+     *
+     * @return bool
+     */
     public function mage_cookies_path()
     {
         if(strstr($this->home_html, 'Mage.Cookies.path')) {
