@@ -6,6 +6,8 @@ class Wordpress extends DetectCMS {
 		"readme",
 		"generator_header",
 		"generator_meta",
+		"scripts",
+		"api",
 		"button_css"
 	);
 
@@ -109,6 +111,55 @@ class Wordpress extends DetectCMS {
 			$lines = explode(PHP_EOL, $data);
 
 			return strpos($lines[8], "WordPress-style Buttons") !== FALSE;
+		}
+
+		return FALSE;
+
+	}
+	
+	/**
+	 * Check for WordPress Core scripts
+	 * @return [boolean]
+	 */
+	public function scripts() {
+
+		if($this->home_html) {
+
+			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+
+			if($html = str_get_html($this->home_html)) {
+
+				foreach($html->find('script') as $element) {
+					if (strpos($element->src, 'wp-includes') !==FALSE)
+						return true;
+				}
+
+			}
+
+		}
+
+		return FALSE;
+
+	}
+
+	/**
+	 * Check for WordPress Core API
+	 * @return [boolean]
+	 */
+	public function api() {
+
+		if($this->home_html) {
+
+			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+
+			if($html = str_get_html($this->home_html)) {
+
+				foreach($html->find('link') as $element) {
+					if (strpos($element->href, 'wp-json') !==FALSE)
+						return true;
+				}
+			}
+
 		}
 
 		return FALSE;
