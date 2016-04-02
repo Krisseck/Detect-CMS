@@ -3,10 +3,14 @@
 class Drupal extends DetectCMS {
 
 	public $methods = array(
+		/*
 		"changelog",
+		"changelog_d8",
 		"generator_header",
 		"generator_meta",
 		"node_css",
+		*/
+		"settings_json"
 	);
 
 	public $home_html = "";
@@ -33,6 +37,26 @@ class Drupal extends DetectCMS {
 			$lines = explode(PHP_EOL, $data);
 
 			return strpos($lines[1], "Drupal") !== FALSE;
+		}
+
+		return FALSE;
+
+	}
+
+	/**
+	 * See if core/CHANGELOG.TXT exists, and check for Drupal
+	 * @return [boolean]
+	 */
+	public function changelog_d8() {
+
+		if($data = $this->fetch($this->url."/core/CHANGELOG.txt")) {
+
+			/**
+			 * Changelog always starts from the second line
+			 */
+			$lines = explode(PHP_EOL, $data);
+
+			return strpos($lines[0], "Drupal") !== FALSE;
 		}
 
 		return FALSE;
@@ -75,7 +99,7 @@ class Drupal extends DetectCMS {
 
 			if($html = str_get_html($this->home_html)) {
 
-				if($meta = $html->find("meta[name='generator']",0)) {
+				if($meta = $html->find("meta[name='generator'], meta[name='Generator']",0)) {
 
 					return strpos($meta->content, "Drupal") !== FALSE;
 
@@ -103,6 +127,28 @@ class Drupal extends DetectCMS {
 			$lines = explode(PHP_EOL, $data);
 
 			return strpos($lines[1], ".node-published") !== FALSE;
+		}
+
+		return FALSE;
+
+	}
+
+	/**
+	* Check if the homepage has Drupal 8 settings JSON
+	* @return [boolean]
+	*/ 
+	public function settings_json() {
+
+		if($this->home_html) {
+
+			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+
+			if($html = str_get_html($this->home_html)) {
+
+				return $html->find("script[data-drupal-selector]",0);
+
+			}
+
 		}
 
 		return FALSE;
