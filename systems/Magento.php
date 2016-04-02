@@ -21,18 +21,23 @@ class Magento extends DetectCMS
      */
     public function mage_cookies_path()
     {
-        libxml_use_internal_errors(true); // stop html5 tags causing errors
 
-        $dom = new DOMDocument();
-        $dom->loadHTML($this->home_html);
-        $scripts = $dom->getElementsByTagName('script');
-        foreach($scripts as $script) {
-            $value = $script->nodeValue;
-            if(strstr($value, 'Mage.Cookies.path')) {
-                return true;
+        if($this->home_html) {
+
+            libxml_use_internal_errors(true); // stop html5 tags causing errors
+
+            $dom = new DOMDocument();
+            $dom->loadHTML($this->home_html);
+            $scripts = $dom->getElementsByTagName('script');
+            foreach($scripts as $script) {
+                $value = $script->nodeValue;
+                if(strstr($value, 'Mage.Cookies.path')) {
+                    return true;
+                }
             }
+            return false;
+
         }
-        return false;
     }
 
 }
