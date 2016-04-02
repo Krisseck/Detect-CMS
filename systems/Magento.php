@@ -1,6 +1,6 @@
 <?php
 
-class Magento
+class Magento extends DetectCMS
 {
 
     public $methods = array(
