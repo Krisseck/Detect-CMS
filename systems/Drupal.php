@@ -3,13 +3,11 @@
 class Drupal extends DetectCMS {
 
 	public $methods = array(
-		/*
 		"changelog",
 		"changelog_d8",
 		"generator_header",
 		"generator_meta",
 		"node_css",
-		*/
 		"settings_json"
 	);
 
