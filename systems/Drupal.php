@@ -16,10 +16,10 @@ class Drupal extends DetectCMS {
 	public $url = "";
 
 	function __construct($home_html, $home_headers, $url) {
-                $this->home_html = $home_html;
-                $this->home_headers = $home_headers;
+    $this->home_html = $home_html;
+    $this->home_headers = $home_headers;
 		$this->url = $url;
-        }
+  }
 
 	/**
 	 * See if CHANGELOG.TXT exists, and check for Drupal
