@@ -2,7 +2,7 @@
 
 class DetectCMS {
 
-	public $systems = array("Drupal","Wordpress","Joomla","Liferay","vBulletin","Magento","ExpressionEngine");
+	public $systems = array("Drupal","Wordpress","Joomla","Liferay","vBulletin","Magento","ExpressionEngine","Sitecore");
 
 	private $common_methods = array("generator_header","generator_meta");
 
@@ -84,14 +84,18 @@ class DetectCMS {
 
 	}
 
-	protected function fetch() {
+	protected function fetch($url=null) {
 
 		$ch = curl_init();
 
-		curl_setopt($ch, CURLOPT_URL, $this->url);
+		if($url==null) {
+			$url = $this->url;
+		}
+		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
 		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10); 
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
 		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
 		$return = curl_exec($ch);
@@ -113,21 +117,22 @@ class DetectCMS {
 
 		$ch = curl_init();
 
-                curl_setopt($ch, CURLOPT_URL, $this->url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
-                curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-                curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+		curl_setopt($ch, CURLOPT_URL, $this->url);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_FOLLOWLOCATION, TRUE);
+		curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
+		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 		curl_setopt($ch, CURLOPT_HEADER, 1);
 
-                $response = curl_exec($ch);
+		$response = curl_exec($ch);
 
-                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
 
-                if($httpCode == 404) {
-                        curl_close($ch);
-                        return FALSE;
-                }
+		if($httpCode == 404) {
+	    curl_close($ch);
+	    return FALSE;
+		}
 
 		$header_size = curl_getinfo($ch, CURLINFO_HEADER_SIZE);
 		$header = substr($response, 0, $header_size);
@@ -137,11 +142,11 @@ class DetectCMS {
 
 		foreach (explode("\r\n", $header) as $i => $line) {
 			if ($i === 0) {
-				$header_array['http_code'] = $line;
-                        } else {
-                              	list ($key, $value) = explode(': ', $line);
-                               	$header_array[$key] = $value;
-                        }
+			$header_array['http_code'] = $line;
+	    } else {
+	    	list ($key, $value) = explode(': ', $line);
+	     	$header_array[$key] = $value;
+	    }
 
 		}
 

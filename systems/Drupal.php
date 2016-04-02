@@ -120,11 +120,12 @@ class Drupal extends DetectCMS {
 		if($data = $this->fetch($this->url."/modules/node/node.css")) {
 
 			/**
-			 * Second line always has .node-published css
+			 * Second line always has .node-* css
 			 */
-			$lines = explode(PHP_EOL, $data);
 
-			return strpos($lines[1], ".node-published") !== FALSE;
+			$lines = preg_split("/\\r\\n|\\r|\\n/",$data);
+
+			return strpos($lines[1], ".node-") !== FALSE;
 		}
 
 		return FALSE;
