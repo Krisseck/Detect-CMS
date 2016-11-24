@@ -24,18 +24,13 @@ class Sitecore extends DetectCMS
 
       if($data = $this->fetch($this->url."/sitecore/admin/login.aspx")) {
 
-        if($html = str_get_html($data)) {
-
-          if($title = $html->find("h1",0)) {
-
-            return strpos($title->innertext, "Sitecore") !== FALSE;
-
-          }
-
+        if(\preg_match("/<h1>.*Sitecore.*<\/h1>/",$data))
+        {
+            return true;
         }
-
       }
 
+      return false;
     }
 
     /**
