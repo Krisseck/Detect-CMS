@@ -2,7 +2,23 @@
 
 class DetectCMS {
 
-	public $systems = array("Drupal","Wordpress","Joomla","Liferay","vBulletin","Magento","ExpressionEngine","Sitecore");
+	public $systems = array(
+        "Drupal",
+        "Wordpress",
+        "Joomla",
+        "Liferay",
+        "vBulletin",
+        "Magento",
+        "ExpressionEngine",
+        "Sitecore",
+        'Bohemiasoft',
+        'EshopRychle',
+        'Fastcentrik',
+        'Shopsys',
+        'Shoptet',
+        'Webgarden',
+        'Webnode',
+    );
 
 	private $common_methods = array("generator_header","generator_meta");
 
