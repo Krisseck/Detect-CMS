@@ -79,7 +79,6 @@ class DetectCMS {
 				if(!in_array($method,$this->common_methods)) {
 
 					if($system->$method()) {
-
 						return $system_name;
 
 					}
@@ -157,7 +156,11 @@ class DetectCMS {
 		$header_array = array();
 
 		foreach (explode("\r\n", $header) as $i => $line) {
-			if ($i === 0) {
+			if($line == '')
+            {
+                continue;
+            }
+            if ($i === 0) {
 			$header_array['http_code'] = $line;
 	    } else {
 	    	list ($key, $value) = explode(': ', $line);
