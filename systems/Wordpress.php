@@ -104,13 +104,14 @@ class Wordpress extends DetectCMS {
 	public function button_css() {
 
 		if($data = $this->fetch($this->url."/wp-includes/css/buttons.css")) {
-
 			/**
 			 * 9th line always has Wordpress-style Buttons
 			 */
 			$lines = explode(PHP_EOL, $data);
-
-			return strpos($lines[8], "WordPress-style Buttons") !== FALSE;
+            if(array_key_exists(8,$lines))
+            {
+                return strpos($lines[8], "WordPress-style Buttons") !== FALSE;
+            }
 		}
 
 		return FALSE;

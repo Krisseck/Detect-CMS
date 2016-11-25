@@ -108,8 +108,10 @@ class Joomla extends DetectCMS {
 			 * 4th line always has Joomla declaration
 			 */
 			$lines = explode(PHP_EOL, $data);
-
-			return strpos($lines[3], "var Joomla={};") !== FALSE;
+            if(array_key_exists(3,$lines))
+            {
+                return strpos($lines[3], "var Joomla={};") !== FALSE;
+            }
 		}
 
 		return FALSE;
