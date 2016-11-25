@@ -32,7 +32,7 @@ class Joomla extends DetectCMS {
 			 */
 			$lines = explode(PHP_EOL, $data);
 
-			for($i=0;$i<10;$i++) {
+			for($i=0;$i<count($lines);$i++) {
 
 				if(strpos($lines[$i], "2- What is Joomla?") !== FALSE) {
 					return TRUE;

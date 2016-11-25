@@ -33,8 +33,12 @@ class Drupal extends DetectCMS {
 			 * Changelog always starts from the second line
 			 */
 			$lines = explode(PHP_EOL, $data);
+            if(array_key_exists(1,$lines))
+            {
+                return strpos($lines[1], "Drupal") !== FALSE;
+            }
 
-			return strpos($lines[1], "Drupal") !== FALSE;
+
 		}
 
 		return FALSE;
