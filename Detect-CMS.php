@@ -155,18 +155,21 @@ class DetectCMS {
 
 		$header_array = array();
 
-		foreach (explode("\r\n", $header) as $i => $line) {
+		foreach (explode("\r\n", $header) as $line) {
 			if($line == '')
             {
                 continue;
             }
-            if ($i === 0) {
-			$header_array['http_code'] = $line;
-	    } else {
-	    	list ($key, $value) = explode(': ', $line);
-	     	$header_array[$key] = $value;
-	    }
 
+            $array = explode(': ', $line);
+            if(array_key_exists(1,$array))
+            {
+                list ($key, $value) = $array;
+                $header_array[$key] = $value;
+                continue;
+            }
+
+			$header_array['http_code'] = $line;
 		}
 
 		curl_close($ch);
