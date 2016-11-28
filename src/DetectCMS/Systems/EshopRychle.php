@@ -1,10 +1,11 @@
 <?php
+namespace DetectCMS\Systems;
 
 /**
  *
  * @author Vojta Brozek <brozek@thepay.cz>
  */
-class Shopsys
+class EshopRychle
 {
     public $methods;
 
@@ -26,7 +27,6 @@ class Shopsys
         $this->url = $url;
 
         $this->methods = array(
-            'checkHtmlHeader',
             'checkHtmlFooter',
         );
     }
@@ -34,27 +34,9 @@ class Shopsys
     /**
      * @return bool
      */
-    public function checkHtmlHeader()
-    {
-        if(\preg_match("/<meta name=\"Author\" content=\"ShopSys\.cz/",$this->home_html))
-        {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
-     * @return bool
-     */
     public function checkHtmlFooter()
     {
-        if(\strpos($this->home_html,'<a href="https://www.shopsys.sk/" title="ShopSys">') !== false)
-        {
-            return true;
-        }
-
-        if(\strpos($this->home_html,'<a href="https://www.shopsys.cz/" title="ShopSys">') !== false)
+        if(\preg_match("/(Vytvořeno systémem|Vytvorené systémom)<a href=\"http:\/\/www\.eshop-(rychle\.cz|rychlo\.sk)\" target=\"_blank\">www\.eshop-(rychle\.cz|rychlo\.sk)<\/a>/",$this->home_html))
         {
             return true;
         }

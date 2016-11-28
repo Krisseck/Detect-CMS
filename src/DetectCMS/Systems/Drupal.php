@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Drupal extends DetectCMS {
+class Drupal extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
 		"changelog",

@@ -1,12 +1,12 @@
 <?php
+namespace DetectCMS\Systems;
 
 /**
  *
  * @author Vojta Brozek <brozek@thepay.cz>
  */
-class Bohemiasoft extends \DetectCMS
+class Fastcentrik
 {
-    /** @var string[] */
     public $methods;
 
     /** @var  string */
@@ -36,7 +36,17 @@ class Bohemiasoft extends \DetectCMS
      */
     public function checkHtmlFooter()
     {
-        if(preg_match("/(Vytvořeno systémem|Vytvorené systémom)<a href=\"http:\/\/www\.webareal\.(cz|sk)\" target=\"_blank\">www\.webareal\.(cz|sk)<\/a>.*<\/div>/",$this->home_html))
+        if(\preg_match("/<div class=\"vc-content_appinfo\"><a href=\"https:\/\/www\.fastcentrik\.cz\" target=\"_blank\" title=\"FastCentrik&#174; - Pron&#225;jem e-shopu\">FastCentrik® - Pronájem e-shopu<\/a><\/div>/",$this->home_html))
+        {
+            return true;
+        }
+
+        if(\strpos($this->home_html,'<a href="http://www.fastcentrik.cz" target="_blank" title="FastCentrik&amp;#174; - Pron') !== false)
+        {
+            return true;
+        }
+
+        if(\strpos($this->home_html,'<a href="http://www.fastcentrik.cz"  target="_blank" title="FastCentrik') !== false)
         {
             return true;
         }

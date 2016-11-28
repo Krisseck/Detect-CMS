@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Joomla extends DetectCMS {
+class Joomla extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
 		"readme",

@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class ExpressionEngine extends DetectCMS
+class ExpressionEngine extends \DetectCMS\DetectCMS
 {
 
     public $methods = array(

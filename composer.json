@@ -1,0 +1,9 @@
+{
+    "name":"Detect-CMS",
+    "type":"library",
+    "autoload":{
+        "psr-0":{
+            "DetectCMS":"src/"
+        }
+    }
+}

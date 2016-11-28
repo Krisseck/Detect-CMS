@@ -1,10 +1,11 @@
 <?php
+namespace DetectCMS\Systems;
 
 /**
  *
  * @author Vojta Brozek <brozek@thepay.cz>
  */
-class Shoptet
+class Webgarden
 {
     public $methods;
 
@@ -26,16 +27,16 @@ class Shoptet
         $this->url = $url;
 
         $this->methods = array(
-            'checkHtmlHead',
+            'checkHtmlFooter',
         );
     }
 
     /**
      * @return bool
      */
-    public function checkHtmlHead()
+    public function checkHtmlFooter()
     {
-        if(preg_match("/<meta name=\"author\" content=\"SafariMedia/",$this->home_html))
+        if(\preg_match("/<li class=\"textlink\"><a href=\"http:\/\/www.webgarden/",$this->home_html))
         {
             return true;
         }

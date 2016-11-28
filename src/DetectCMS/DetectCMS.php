@@ -1,4 +1,7 @@
 <?php
+namespace DetectCMS;
+
+require_once __DIR__.'/Thirdparty/simple_html_dom.php';
 
 class DetectCMS {
 
@@ -44,7 +47,7 @@ class DetectCMS {
 				
 		foreach($this->systems as $system_name) {
 
-			require_once(dirname(__FILE__)."/systems/".$system_name.".php");
+            $system_name = 'DetectCMS\\Systems\\'.$system_name;
 
 			$system = new $system_name($this->home_html, $this->home_headers, $this->url);
 
@@ -70,7 +73,7 @@ class DetectCMS {
 
 		foreach($this->systems as $system_name) {
 
-			require_once(dirname(__FILE__)."/systems/".$system_name.".php");
+            $system_name = 'DetectCMS\\Systems\\'.$system_name;
 
 			$system = new $system_name($this->home_html, $this->home_headers, $this->url);
 

@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Sitecore extends DetectCMS
+class Sitecore extends \DetectCMS\DetectCMS
 {
 
     public $methods = array(

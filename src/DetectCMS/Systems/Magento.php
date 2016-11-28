@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Magento extends DetectCMS
+class Magento extends \DetectCMS\DetectCMS
 {
 
     public $methods = array(

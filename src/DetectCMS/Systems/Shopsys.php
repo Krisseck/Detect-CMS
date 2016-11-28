@@ -1,10 +1,11 @@
 <?php
+namespace DetectCMS\Systems;
 
 /**
  *
  * @author Vojta Brozek <brozek@thepay.cz>
  */
-class Webgarden
+class Shopsys
 {
     public $methods;
 
@@ -26,6 +27,7 @@ class Webgarden
         $this->url = $url;
 
         $this->methods = array(
+            'checkHtmlHeader',
             'checkHtmlFooter',
         );
     }
@@ -33,9 +35,27 @@ class Webgarden
     /**
      * @return bool
      */
+    public function checkHtmlHeader()
+    {
+        if(\preg_match("/<meta name=\"Author\" content=\"ShopSys\.cz/",$this->home_html))
+        {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
     public function checkHtmlFooter()
     {
-        if(\preg_match("/<li class=\"textlink\"><a href=\"http:\/\/www.webgarden/",$this->home_html))
+        if(\strpos($this->home_html,'<a href="https://www.shopsys.sk/" title="ShopSys">') !== false)
+        {
+            return true;
+        }
+
+        if(\strpos($this->home_html,'<a href="https://www.shopsys.cz/" title="ShopSys">') !== false)
         {
             return true;
         }

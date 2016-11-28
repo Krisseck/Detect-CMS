@@ -1,10 +1,11 @@
 <?php
+namespace DetectCMS\Systems;
 
 /**
  *
  * @author Vojta Brozek <brozek@thepay.cz>
  */
-class EshopRychle
+class Shoptet
 {
     public $methods;
 
@@ -26,16 +27,16 @@ class EshopRychle
         $this->url = $url;
 
         $this->methods = array(
-            'checkHtmlFooter',
+            'checkHtmlHead',
         );
     }
 
     /**
      * @return bool
      */
-    public function checkHtmlFooter()
+    public function checkHtmlHead()
     {
-        if(\preg_match("/(Vytvořeno systémem|Vytvorené systémom)<a href=\"http:\/\/www\.eshop-(rychle\.cz|rychlo\.sk)\" target=\"_blank\">www\.eshop-(rychle\.cz|rychlo\.sk)<\/a>/",$this->home_html))
+        if(preg_match("/<meta name=\"author\" content=\"SafariMedia/",$this->home_html))
         {
             return true;
         }

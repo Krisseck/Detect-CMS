@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Wordpress extends DetectCMS {
+class Wordpress extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
 		"readme",

@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class vBulletin extends DetectCMS {
+class vBulletin extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
 		"generator_meta",
