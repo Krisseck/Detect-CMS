@@ -47,9 +47,9 @@ class DetectCMS {
 				
 		foreach($this->systems as $system_name) {
 
-            $system_name = 'DetectCMS\\Systems\\'.$system_name;
+            $system_class = 'DetectCMS\\Systems\\'.$system_name;
 
-			$system = new $system_name($this->home_html, $this->home_headers, $this->url);
+			$system = new $system_class($this->home_html, $this->home_headers, $this->url);
 
 			foreach($this->common_methods as $method) {
 
@@ -73,9 +73,9 @@ class DetectCMS {
 
 		foreach($this->systems as $system_name) {
 
-            $system_name = 'DetectCMS\\Systems\\'.$system_name;
+            $system_class = 'DetectCMS\\Systems\\'.$system_name;
 
-			$system = new $system_name($this->home_html, $this->home_headers, $this->url);
+			$system = new $system_class($this->home_html, $this->home_headers, $this->url);
 
 			foreach($system->methods as $method) {
 
