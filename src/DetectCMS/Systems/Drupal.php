@@ -130,7 +130,10 @@ class Drupal extends \DetectCMS\DetectCMS {
 
 			$lines = preg_split("/\\r\\n|\\r|\\n/",$data);
 
-			return strpos($lines[1], ".node-") !== FALSE;
+            if(array_key_exists(1,$lines))
+            {
+			    return strpos($lines[1], ".node-") !== FALSE;
+            }
 		}
 
 		return FALSE;
