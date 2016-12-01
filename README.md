@@ -13,7 +13,7 @@ Add to your composer.json
     "repositories":[
         {
             "type": "vcs",
-            "url": "git@github.com:Triplkrypl/Detect-CMS.git"
+            "url": "git@github.com:Krisseck/Detect-CMS.git"
         }
     ],
     "require":{
