@@ -98,7 +98,7 @@ class Drupal extends \DetectCMS\DetectCMS {
 
 		if($this->home_html) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($this->home_html)) {
 
@@ -148,7 +148,7 @@ class Drupal extends \DetectCMS\DetectCMS {
 
 		if($this->home_html) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($this->home_html)) {
 
