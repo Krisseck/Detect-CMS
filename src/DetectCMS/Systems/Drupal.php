@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Drupal extends DetectCMS {
+class Drupal extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
 		"changelog",
@@ -33,8 +34,12 @@ class Drupal extends DetectCMS {
 			 * Changelog always starts from the second line
 			 */
 			$lines = explode(PHP_EOL, $data);
+            if(array_key_exists(1,$lines))
+            {
+                return strpos($lines[1], "Drupal") !== FALSE;
+            }
 
-			return strpos($lines[1], "Drupal") !== FALSE;
+
 		}
 
 		return FALSE;
@@ -93,7 +98,7 @@ class Drupal extends DetectCMS {
 
 		if($this->home_html) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($this->home_html)) {
 
@@ -125,7 +130,10 @@ class Drupal extends DetectCMS {
 
 			$lines = preg_split("/\\r\\n|\\r|\\n/",$data);
 
-			return strpos($lines[1], ".node-") !== FALSE;
+            if(array_key_exists(1,$lines))
+            {
+			    return strpos($lines[1], ".node-") !== FALSE;
+            }
 		}
 
 		return FALSE;
@@ -140,7 +148,7 @@ class Drupal extends DetectCMS {
 
 		if($this->home_html) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($this->home_html)) {
 

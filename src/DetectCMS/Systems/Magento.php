@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Magento extends DetectCMS
+class Magento extends \DetectCMS\DetectCMS
 {
 
     public $methods = array(
@@ -26,7 +27,7 @@ class Magento extends DetectCMS
 
             libxml_use_internal_errors(true); // stop html5 tags causing errors
 
-            $dom = new DOMDocument();
+            $dom = new \DOMDocument();
             $dom->loadHTML($this->home_html);
             $scripts = $dom->getElementsByTagName('script');
             foreach($scripts as $script) {

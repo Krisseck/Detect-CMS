@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Wordpress extends DetectCMS {
+class Wordpress extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
 		"readme",
@@ -29,7 +30,7 @@ class Wordpress extends DetectCMS {
 
 		if($data = $this->fetch($this->url."/readme.html")) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($data)) {
 
@@ -79,7 +80,7 @@ class Wordpress extends DetectCMS {
 
 		if($this->home_html) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($this->home_html)) {
 
@@ -104,13 +105,14 @@ class Wordpress extends DetectCMS {
 	public function button_css() {
 
 		if($data = $this->fetch($this->url."/wp-includes/css/buttons.css")) {
-
 			/**
 			 * 9th line always has Wordpress-style Buttons
 			 */
 			$lines = explode(PHP_EOL, $data);
-
-			return strpos($lines[8], "WordPress-style Buttons") !== FALSE;
+            if(array_key_exists(8,$lines))
+            {
+                return strpos($lines[8], "WordPress-style Buttons") !== FALSE;
+            }
 		}
 
 		return FALSE;
@@ -125,7 +127,7 @@ class Wordpress extends DetectCMS {
 
 		if($this->home_html) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($this->home_html)) {
 
@@ -150,7 +152,7 @@ class Wordpress extends DetectCMS {
 
 		if($this->home_html) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($this->home_html)) {
 

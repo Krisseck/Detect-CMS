@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Liferay extends DetectCMS {
+class Liferay extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
 		"core_js_variable"

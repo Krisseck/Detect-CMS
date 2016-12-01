@@ -1,11 +1,11 @@
 <?php
+namespace DetectCMS\Systems;
 
-class ExpressionEngine extends DetectCMS
+class ExpressionEngine extends \DetectCMS\DetectCMS
 {
 
     public $methods = array(
-      'admin_logo',
-      'csrf_token_header'
+      'csrf_token_header',
     );
 
     public function __construct($home_html, $home_headers, $url)
@@ -13,17 +13,6 @@ class ExpressionEngine extends DetectCMS
       $this->home_html = $home_html;
       $this->home_headers = $home_headers;
       $this->url = $url;
-    }
-
-    /**
-     * Check admin logo image
-     *
-     * @return [boolean]
-     */
-    public function admin_logo() {
-
-      return $this->fetch($this->url."/themes/cp_global_images/ee_logo_branding.gif");
-
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class Joomla extends DetectCMS {
+class Joomla extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
 		"readme",
@@ -32,7 +33,7 @@ class Joomla extends DetectCMS {
 			 */
 			$lines = explode(PHP_EOL, $data);
 
-			for($i=0;$i<10;$i++) {
+			for($i=0;$i<count($lines);$i++) {
 
 				if(strpos($lines[$i], "2- What is Joomla?") !== FALSE) {
 					return TRUE;
@@ -78,7 +79,7 @@ class Joomla extends DetectCMS {
 
 		if($this->home_html) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($this->home_html)) {
 
@@ -108,8 +109,10 @@ class Joomla extends DetectCMS {
 			 * 4th line always has Joomla declaration
 			 */
 			$lines = explode(PHP_EOL, $data);
-
-			return strpos($lines[3], "var Joomla={};") !== FALSE;
+            if(array_key_exists(3,$lines))
+            {
+                return strpos($lines[3], "var Joomla={};") !== FALSE;
+            }
 		}
 
 		return FALSE;

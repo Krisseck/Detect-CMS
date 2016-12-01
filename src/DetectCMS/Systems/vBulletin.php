@@ -1,6 +1,7 @@
 <?php
+namespace DetectCMS\Systems;
 
-class vBulletin extends DetectCMS {
+class vBulletin extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
 		"generator_meta",
@@ -25,7 +26,7 @@ class vBulletin extends DetectCMS {
 
 		if($this->home_html) {
 
-			require_once(dirname(__FILE__)."/../thirdparty/simple_html_dom.php");
+			require_once(dirname(__FILE__)."/../Thirdparty/simple_html_dom.php");
 
 			if($html = str_get_html($this->home_html)) {
 
