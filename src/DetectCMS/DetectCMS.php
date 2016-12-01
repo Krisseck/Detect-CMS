@@ -6,22 +6,22 @@ require_once __DIR__.'/Thirdparty/simple_html_dom.php';
 class DetectCMS {
 
 	public $systems = array(
-        "Drupal",
-        "Wordpress",
-        "Joomla",
-        "Liferay",
-        "vBulletin",
-        "Magento",
-        "ExpressionEngine",
-        "Sitecore",
-        'Bohemiasoft',
-        'EshopRychle',
-        'Fastcentrik',
-        'Shopsys',
-        'Shoptet',
-        'Webgarden',
-        'Webnode',
-    );
+    "Drupal",
+    "Wordpress",
+    "Joomla",
+    "Liferay",
+    "vBulletin",
+    "Magento",
+    "ExpressionEngine",
+    "Sitecore",
+    'Bohemiasoft',
+    'EshopRychle',
+    'Fastcentrik',
+    'Shopsys',
+    'Shoptet',
+    'Webgarden',
+    'Webnode',
+  );
 
 	private $common_methods = array("generator_header","generator_meta");
 
@@ -47,7 +47,7 @@ class DetectCMS {
 				
 		foreach($this->systems as $system_name) {
 
-            $system_class = 'DetectCMS\\Systems\\'.$system_name;
+      $system_class = 'DetectCMS\\Systems\\'.$system_name;
 
 			$system = new $system_class($this->home_html, $this->home_headers, $this->url);
 
@@ -57,9 +57,9 @@ class DetectCMS {
 
 					if($system->$method()) {
 
-                                        	return $system_name;
+            return $system_name;
 
-                                        }
+          }
 
 				}
 
@@ -73,7 +73,7 @@ class DetectCMS {
 
 		foreach($this->systems as $system_name) {
 
-            $system_class = 'DetectCMS\\Systems\\'.$system_name;
+      $system_class = 'DetectCMS\\Systems\\'.$system_name;
 
 			$system = new $system_class($this->home_html, $this->home_headers, $this->url);
 
@@ -160,17 +160,17 @@ class DetectCMS {
 
 		foreach (explode("\r\n", $header) as $line) {
 			if($line == '')
-            {
-                continue;
-            }
+      {
+          continue;
+      }
 
-            $array = explode(': ', $line);
-            if(array_key_exists(1,$array))
-            {
-                list ($key, $value) = $array;
-                $header_array[$key] = $value;
-                continue;
-            }
+      $array = explode(': ', $line);
+      if(array_key_exists(1,$array))
+      {
+        list ($key, $value) = $array;
+        $header_array[$key] = $value;
+        continue;
+      }
 
 			$header_array['http_code'] = $line;
 		}
