@@ -21,6 +21,7 @@ class DetectCMS {
     'Shoptet',
     'Webgarden',
     'Webnode',
+    "Moodle"
   );
 
 	private $common_methods = array("generator_header","generator_meta");
