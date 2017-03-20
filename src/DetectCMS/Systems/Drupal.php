@@ -4,6 +4,7 @@ namespace DetectCMS\Systems;
 class Drupal extends \DetectCMS\DetectCMS {
 
 	public $methods = array(
+		"readme_d6",
 		"changelog",
 		"changelog_d8",
 		"generator_header",
@@ -17,11 +18,26 @@ class Drupal extends \DetectCMS\DetectCMS {
 	public $url = "";
 
 	function __construct($home_html, $home_headers, $url) {
-    $this->home_html = $home_html;
-    $this->home_headers = $home_headers;
+    		$this->home_html = $home_html;
+    		$this->home_headers = $home_headers;
 		$this->url = $url;
-  }
-
+  	}
+        
+	public function readme_d6() {
+        /*
+         * See if README.TXT exists, and check for Drupal 6.xx
+         * @return [boolean]
+         */
+                if($data = $this->fetch($this->url."/sites/all/README.txt")) {
+                    $lines = explode(PHP_EOL, $data);
+                    for($i=0;$i<count($lines);$i++) {
+                        if(strpos($lines[$i], "Drupal") !== FALSE) {
+                            return TRUE;
+                        }
+                    }
+                return FALSE;
+                }
+        }
 	/**
 	 * See if CHANGELOG.TXT exists, and check for Drupal
 	 * @return [boolean]
