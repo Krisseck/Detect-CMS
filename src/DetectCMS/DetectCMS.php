@@ -12,6 +12,7 @@ class DetectCMS {
     "Liferay",
     "vBulletin",
     "Magento",
+    "Magento2",
     "ExpressionEngine",
     "Sitecore",
     'Bohemiasoft',
