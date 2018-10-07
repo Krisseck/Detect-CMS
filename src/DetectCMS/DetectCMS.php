@@ -24,6 +24,7 @@ class DetectCMS
         'Webgarden',
         'Webnode',
         'Laravel',
+        'Concrete5'
     ];
 
     private $common_methods = ["generator_header", "generator_meta"];
