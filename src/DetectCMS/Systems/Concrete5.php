@@ -5,8 +5,8 @@ namespace DetectCMS\Systems;
 class Concrete5 extends \DetectCMS\DetectCMS
 {
     public $methods = array(
-        'license',
-        'meta'
+        'meta',
+        'robots'
     );
 
     public function __construct($home_html, $home_headers, $url)
@@ -41,7 +41,7 @@ class Concrete5 extends \DetectCMS\DetectCMS
      *
      * @return boolean
      */
-    public function license()
+    public function robots()
     {
         if ($this->isValid()) {
             $search = array('/*&ccm_token=*', '/ccm/system/captcha/picture');
