@@ -24,6 +24,7 @@ class DetectCMS
         'Webgarden',
         'Webnode',
         'Laravel',
+        'Concrete5',
         'Squarespace',
         'Typo3'
     ];
