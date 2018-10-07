@@ -25,6 +25,7 @@ class DetectCMS
         'Webnode',
         'Laravel',
         'Squarespace',
+        'Typo3'
     ];
 
     private $common_methods = ["generator_header", "generator_meta"];
