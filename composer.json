@@ -1,9 +1,11 @@
 {
-    "name":"Detect-CMS",
-    "type":"library",
-    "autoload":{
-        "psr-0":{
-            "DetectCMS":"src/"
+    "name": "krisseck/detect-cms",
+    "description": "PHP Library for detecting CMS.",
+    "keywords": ["detect", "cms"],
+    "type": "library",
+    "autoload": {
+        "psr-0": {
+            "DetectCMS": "src/"
         }
     }
 }
