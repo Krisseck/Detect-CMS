@@ -6,20 +6,8 @@ PHP Library for detecting CMS
 Install
 -------
 
-Add to your composer.json
-
-```json
-{
-    "repositories":[
-        {
-            "type": "vcs",
-            "url": "git@github.com:Krisseck/Detect-CMS.git"
-        }
-    ],
-    "require":{
-        "Detect-CMS":"1.0.*"
-    }
-}
+```bash
+composer require krisseck/detect-cms:dev-master
 ```
 
 How to use:
